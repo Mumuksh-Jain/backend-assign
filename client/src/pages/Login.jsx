@@ -55,8 +55,8 @@ export default function Login() {
           {loading ? 'Logging in...' : 'Login'}
         </button>
 
-        {message && <p className="success">{message}</p>}
-        {error && <p className="error">{error}</p>}
+        {message && <p className="alert success">{message}</p>}
+        {error && <p className="alert error">{error}</p>}
 
         <p className="muted">
           No account? <Link to="/register">Register</Link>

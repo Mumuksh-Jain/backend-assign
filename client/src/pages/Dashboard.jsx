@@ -59,14 +59,8 @@ export default function Dashboard() {
         const response = await api.put(`/tasks/${editingId}`, taskForm);
         setMessage(response?.data?.message || 'Task updated');
       } else {
-        // Try requested endpoint first, then REST fallback.
-        try {
-          const response = await api.post('/tasks/create', taskForm);
-          setMessage(response?.data?.message || 'Task created');
-        } catch (_e) {
-          const response = await api.post('/tasks', taskForm);
-          setMessage(response?.data?.message || 'Task created');
-        }
+        const response = await api.post('/tasks', taskForm);
+        setMessage(response?.data?.message || 'Task created');
       }
 
       setTaskForm(defaultTask);
@@ -182,8 +176,8 @@ export default function Dashboard() {
         </form>
       </section>
 
-      {message && <p className="success card">{message}</p>}
-      {error && <p className="error card">{error}</p>}
+      {message && <p className="alert success">{message}</p>}
+      {error && <p className="alert error">{error}</p>}
 
       <section className="card list-card">
         <h2>Your tasks</h2>

@@ -24,32 +24,40 @@ a:hover {
 
 .auth-page,
 .dashboard-page {
-  width: min(980px, 92vw);
+  width: min(1040px, 92vw);
   margin: 40px auto;
+}
+
+.auth-page {
+  min-height: calc(100vh - 80px);
+  display: grid;
+  place-items: center;
 }
 
 .card {
   background: #ffffff;
-  border: 1px solid #d9e6ef;
-  border-radius: 14px;
-  padding: 18px;
-  box-shadow: 0 8px 24px rgba(14, 47, 74, 0.08);
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
 }
 
 .auth-card {
-  width: min(460px, 100%);
+  width: min(480px, 100%);
   margin: 0 auto;
+  display: grid;
+  gap: 16px;
 }
 
 h1,
 h2,
 h3 {
-  margin: 0 0 10px;
+  margin: 0;
 }
 
 label {
   display: block;
-  margin: 12px 0 6px;
+  margin: 0;
   font-weight: 600;
 }
 
@@ -58,9 +66,9 @@ textarea,
 select,
 button {
   width: 100%;
-  padding: 11px 12px;
-  border-radius: 10px;
-  border: 1px solid #b9ccdb;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ddd;
   font-size: 0.98rem;
 }
 
@@ -70,16 +78,17 @@ textarea {
 }
 
 button {
-  margin-top: 14px;
+  margin-top: 0;
   border: none;
   color: #fff;
-  background: #0e6ad9;
+  background: #4f46e5;
+  padding: 12px;
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
 button:hover {
-  background: #0a56b4;
+  background: #4338ca;
 }
 
 button:disabled {
@@ -107,23 +116,41 @@ button.danger:hover {
   color: #5c6d7b;
 }
 
+.alert {
+  margin: 0;
+  padding: 8px;
+  border-radius: 4px;
+}
+
 .success {
-  color: #0f6d2b;
+  background: #dcfce7;
+  color: #16a34a;
 }
 
 .error {
-  color: #a12323;
+  background: #fee2e2;
+  color: #dc2626;
 }
 
 .topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
+  gap: 16px;
+}
+
+.topbar button {
+  width: auto;
+  min-width: 120px;
 }
 
 .form-card {
   margin-top: 16px;
+}
+
+.form-card form {
+  display: grid;
+  gap: 16px;
 }
 
 .list-card {
@@ -132,15 +159,17 @@ button.danger:hover {
 
 .task-list {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
 }
 
 .task-item {
-  border: 1px solid #d8e3eb;
+  border: 1px solid #e5e7eb;
   border-radius: 10px;
-  padding: 12px;
+  padding: 16px;
   background: #fcfeff;
+  display: grid;
+  gap: 16px;
 }
 
 .task-head {
@@ -161,23 +190,23 @@ button.danger:hover {
 }
 
 .badge.pending {
-  background: #fff3cf;
-  color: #8f6200;
+  background: #fef9c3;
+  color: #a16207;
 }
 
 .badge.progress {
-  background: #dbeeff;
-  color: #094981;
+  background: #dbeafe;
+  color: #1d4ed8;
 }
 
 .badge.done {
-  background: #daf8df;
-  color: #216a2d;
+  background: #dcfce7;
+  color: #15803d;
 }
 
 .row {
   display: flex;
-  gap: 8px;
+  gap: 16px;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -187,6 +216,7 @@ button.danger:hover {
 }
 
 @media (max-width: 720px) {
+  .auth-page,
   .dashboard-page {
     margin: 20px auto;
   }
@@ -194,5 +224,10 @@ button.danger:hover {
   .topbar {
     flex-direction: column;
     align-items: stretch;
+  }
+
+  .topbar button,
+  .row > * {
+    width: 100%;
   }
 }

@@ -2,11 +2,16 @@ const express = require('express');
 const router = express.Router();
 const { body, validationResult } = require('express-validator');
 const authControllers = require('../controllers/auth.controller');
-
+const { protect } = require('../middlewares/auth.middleware');
 const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ success: false, errors: errors.array() });
+    const firstError = errors.array()[0];
+    return res.status(400).json({
+      success: false,
+      message: firstError?.msg || 'Validation failed',
+      errors: errors.array()
+    });
   }
   next();
 };
@@ -22,6 +27,6 @@ router.post('/login', [
   body('password').notEmpty().withMessage('Password is required')
 ], validate, authControllers.loginUser);
 
-router.post('/logout', authControllers.logoutUser);
+router.post('/logout', protect, authControllers.logoutUser);
 
 module.exports = router;

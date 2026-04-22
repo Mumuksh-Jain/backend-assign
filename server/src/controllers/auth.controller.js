@@ -4,6 +4,10 @@ const ApiResponse = require('../utils/api-response');
 
 const registerUser = async (req, res) => {
     try {
+        if (!process.env.JWT_SECRET) {
+            throw new ApiError(500, 'JWT_SECRET is not configured');
+        }
+
         const { name, email, password } = req.body;
         if (!name || !email || !password) {
             throw new ApiError(400, 'Name, email, and password are required');
@@ -36,13 +40,22 @@ const registerUser = async (req, res) => {
         if (error instanceof ApiError) {
             return res
                 .status(error.statusCode)
-                .json(new ApiResponse(error.statusCode, null, error.message));
+                .json(new ApiResponse(error.statusCode, null, error.message, false));
         }
-        return res.status(500).json(new ApiResponse(500, null, 'Server error'));
+
+        if (error?.code === 11000) {
+            return res.status(400).json(new ApiResponse(400, null, 'User with this email already exists', false));
+        }
+
+        return res.status(500).json(new ApiResponse(500, null, error.message || 'Server error', false));
     }
 }
 const loginUser = async (req, res) => {
     try {
+        if (!process.env.JWT_SECRET) {
+            throw new ApiError(500, 'JWT_SECRET is not configured');
+        }
+
         const { email, password } = req.body;
 
         if (!email || !password) {
@@ -77,9 +90,9 @@ const loginUser = async (req, res) => {
         if (error instanceof ApiError) {
             return res
                 .status(error.statusCode)
-                .json(new ApiResponse(error.statusCode, null, error.message));
+                .json(new ApiResponse(error.statusCode, null, error.message, false));
         }
-        return res.status(500).json(new ApiResponse(500, null, 'Server error'));
+        return res.status(500).json(new ApiResponse(500, null, error.message || 'Server error', false));
     }
 }
 const logoutUser = (req, res) => {

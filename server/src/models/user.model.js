@@ -26,10 +26,10 @@ const userSchema = new mongoose.Schema({
 }, { timestamps: true });
 userSchema.pre('save', async function (next) {
     if (!this.isModified('password')) {
-        return next();
+        return ;
     }
     this.password = await bcrypt.hash(this.password, 10);
-    return next();
+    return ;
 });
 userSchema.methods.isPasswordCorrect = async function (password) {
     return bcrypt.compare(password, this.password);
